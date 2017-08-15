@@ -1,6 +1,12 @@
 $(function ()
 {
 
+    /**
+     * Máscaras
+     */
+    $('.date').mask('00/00/0000');
+
+    /** PT-BR para datepicker **/
     jQuery(function($){
         $.datepicker.regional['pt-BR'] = {
             closeText: 'Fechar',
@@ -49,7 +55,7 @@ $(function ()
         var autor      = '';
 
         var aNomeFormatado = [];
-
+        var aPreposicao = ["das", "dos", "de", "da"];
         /** Limpa campo */
         resultado.val('');
 
@@ -66,6 +72,20 @@ $(function ()
             /** Remove o último elemento do array de nome */
             aNome.splice(-1,1);
 
+            $.each(aNome, function (index, item)
+            {
+
+                /** Remove a preposicao **/
+                if (aPreposicao.indexOf(item) !== -1)
+                {
+
+                    aNome.splice(index,1);
+
+                }
+
+
+            });
+
             /** Mescla os nomes restantes do array */
             var nome = aNome.join();
 
@@ -77,9 +97,10 @@ $(function ()
         /** Explode pelo número de autores */
         autor = aNomeFormatado.join('; ');
 
-        resultado.val('Referência: '+autor+'. '+titulo+': '+subtitulo+'. Disponível em:<'+endereco+'>. Acesso em '+ano);
+        resultado.val('Referência: '+autor+'. '+titulo+': '+subtitulo+'. Disponível em :<'+endereco+'>. Acesso em '+ano+'.');
 
     })
+
 
 });
 
